@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>De Joe Fast Food - Smart Vending & Fast Casual Restaurant</title>
+  <title>De Joe Fast Food - AEGIS Online Ordering System</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,226 +12,30 @@
 </head>
 <body>
 
-  <!-- App Header & Navigation -->
-  <header class="app-header">
-    <div class="header-container">
-      <div class="app-brand">
-        <img src="assets/logo.jpg" alt="De Joe Fast Food Logo">
-        <div>
-          <div class="app-brand-title">DE JOE FAST FOOD</div>
-          <div class="app-brand-sub">Smart Vending & Fast Casual • Accra</div>
-        </div>
+  <!-- Top Role Portal Switcher Bar (AEGIS Spec) -->
+  <header class="top-role-bar">
+    <div class="role-bar-container">
+      <div class="role-bar-label">
+        <i class="fa-solid fa-layer-group"></i> <strong>AEGIS System Role Switcher:</strong>
       </div>
-
-      <div class="app-location-badge">
-        <i class="fa-solid fa-location-dot"></i> Station #04 - Osu Downtown Hub <span class="status-dot"></span> Online
-      </div>
-
-      <div class="header-actions">
-        <button class="cart-btn-floating" onclick="openCartDrawer()">
-          <i class="fa-solid fa-cart-shopping"></i> Cart
-          <span class="cart-count-badge" id="live-cart-count">0</span>
+      <div class="role-buttons">
+        <button class="portal-btn active" data-portal="customer" onclick="switchPortal('customer')">
+          <i class="fa-solid fa-user"></i> Customer App (8 Pages)
+        </button>
+        <button class="portal-btn" data-portal="vendor" onclick="switchPortal('vendor')">
+          <i class="fa-solid fa-store"></i> Vendor Dashboard (6 Pages)
+        </button>
+        <button class="portal-btn" data-portal="rider" onclick="switchPortal('rider')">
+          <i class="fa-solid fa-motorcycle"></i> Rider Workspace (4 Pages)
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Web App Container -->
-  <main class="app-main-content">
-    
-    <!-- Hero Banner Section -->
-    <section class="hero-banner-section">
-      <div class="hero-layout-grid">
-        <div class="hero-text-content">
-          <div class="hero-pill-badge"><i class="fa-solid fa-fire"></i> Fresh Automated Meals Under 60 Seconds</div>
-          <h1 class="hero-heading">Smoky Jollof, Suya Grill & Gourmet Smash Burgers</h1>
-          <p class="hero-description">
-            Order online for instant pickup or grab your hot automated meal directly from De Joe Vending Stations across Accra & major hubs.
-          </p>
-          
-          <div class="hero-stats-row">
-            <div class="stat-box">
-              <span class="stat-number">60s</span>
-              <span class="stat-label">Dispense Time</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-number">78°C</span>
-              <span class="stat-label">Serving Temp</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-number">24/7</span>
-              <span class="stat-label">Smart Kiosks</span>
-            </div>
-          </div>
-
-          <div class="hero-actions-row">
-            <button class="btn-primary-hero" onclick="scrollToMenu()"><i class="fa-solid fa-utensils"></i> Order From Menu</button>
-            <button class="btn-secondary-hero" onclick="openCartDrawer()"><i class="fa-solid fa-qrcode"></i> Scan Pickup Code</button>
-          </div>
-        </div>
-
-        <div class="hero-media-wrapper">
-          <img src="assets/jollof_combo.jpg" alt="Signature Jollof Feast" class="hero-main-img">
-          <div class="hero-floating-card">
-            <div class="pulse-indicator"></div>
-            <div>
-              <div style="font-weight:800; font-size:13px; color:#FFF;">Signature Jollof Feast</div>
-              <div style="font-size:11px; color:var(--color-brand-secondary);">GH₵ 120.00 • Hot Dispense Ready</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Menu Section -->
-    <section id="live-menu-section" class="menu-section">
-      <div class="menu-header-bar">
-        <div>
-          <h2 class="section-title">Today's Vending & Kiosk Menu</h2>
-          <p class="section-subtitle">Freshly prepared ingredients served hot at automated stations</p>
-        </div>
-
-        <div class="menu-controls">
-          <div class="search-bar-wrap">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="menu-search-input" placeholder="Search menu (e.g. Jollof, Suya, Wings)..." class="search-input">
-          </div>
-
-          <div class="menu-filter-bar">
-            <span class="menu-chip active" onclick="filterLiveMenu('all', this)">All Items</span>
-            <span class="menu-chip" onclick="filterLiveMenu('jollof', this)">Jollof & Grill</span>
-            <span class="menu-chip" onclick="filterLiveMenu('burger', this)">Smash Burgers</span>
-            <span class="menu-chip" onclick="filterLiveMenu('sides', this)">Loaded Sides</span>
-            <span class="menu-chip" onclick="filterLiveMenu('drinks', this)">Shakes & Drinks</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="menu-cards-grid" id="live-menu-grid">
-        <!-- Dynamically populated via JS -->
-      </div>
-    </section>
-
+  <!-- Main Root Container Managed by JavaScript -->
+  <main id="aegis-app-root">
+    <!-- Rendered dynamically by app.js -->
   </main>
-
-  <!-- Item Customization Modal -->
-  <div class="modal-overlay" id="customize-modal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modal-item-title">Customize Item</h3>
-        <button class="btn-close-modal" onclick="closeModal('customize-modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="modal-item-preview">
-        <img src="" id="modal-item-img" alt="Food Item">
-        <div>
-          <div class="modal-item-price-tag" id="modal-item-price">GH₵ 0.00</div>
-          <div style="font-size:12px; color:var(--color-text-secondary);">Select options for automated preparation.</div>
-        </div>
-      </div>
-
-      <div class="modal-option-group">
-        <div class="option-label">SPICINESS LEVEL</div>
-        <div class="spice-options-grid">
-          <button class="menu-chip active" style="text-align:center;">Mild</button>
-          <button class="menu-chip" style="text-align:center;">Medium Suya</button>
-          <button class="menu-chip" style="text-align:center;">Flame Hot 🔥</button>
-        </div>
-      </div>
-
-      <div class="modal-option-group">
-        <div class="option-label">EXTRA ADD-ONS</div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <label class="checkbox-option">
-            <span><input type="checkbox" id="addon-1"> Extra Grilled Chicken Quarter</span>
-            <span class="addon-price">+GH₵ 35.00</span>
-          </label>
-          <label class="checkbox-option">
-            <span><input type="checkbox" id="addon-2"> Melted Spicy Cheddar Dip</span>
-            <span class="addon-price">+GH₵ 15.00</span>
-          </label>
-        </div>
-      </div>
-
-      <button class="btn-primary-hero" style="width:100%; margin-top:10px;" id="modal-add-btn">
-        <i class="fa-solid fa-cart-plus"></i> Add to Cart
-      </button>
-    </div>
-  </div>
-
-  <!-- Cart Drawer Modal -->
-  <div class="modal-overlay" id="cart-modal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title"><i class="fa-solid fa-shopping-bag"></i> Your Vending Order</h3>
-        <button class="btn-close-modal" onclick="closeModal('cart-modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="cart-items-container" id="cart-items-list">
-        <!-- Dynamic Cart Items -->
-      </div>
-
-      <div class="cart-footer-summary">
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span id="cart-subtotal">GH₵ 0.00</span>
-        </div>
-        <div class="summary-row total-row">
-          <span>Total</span>
-          <span id="cart-total">GH₵ 0.00</span>
-        </div>
-      </div>
-
-      <button class="btn-primary-hero" style="width:100%; font-size:14px;" onclick="processCheckout()">
-        <i class="fa-solid fa-qrcode"></i> Generate Pickup Voucher
-      </button>
-    </div>
-  </div>
-
-  <!-- Interactive Vending Dispenser Simulator Modal -->
-  <div class="modal-overlay" id="dispense-modal">
-    <div class="modal-card" style="text-align:center;">
-      <div style="font-size:48px; color:var(--color-brand-primary); margin-bottom:12px;">
-        <i class="fa-solid fa-gear fa-spin"></i>
-      </div>
-      <h3 style="font-size:20px; font-weight:800; color:#FFF; margin-bottom:6px;">AUTOMATED VENDING KIOSK</h3>
-      <p style="font-size:13px; color:var(--color-brand-secondary);" id="dispense-status-text">Verifying QR Voucher & Payment...</p>
-      
-      <div class="progress-bar-wrap" style="width:100%; height:10px; background:rgba(255,255,255,0.08); border-radius:5px; margin:20px 0; overflow:hidden;">
-        <div id="dispense-progress" style="width:20%; height:100%; background:linear-gradient(90deg, #FF5500, #FFB800); transition: width 0.8s ease;"></div>
-      </div>
-
-      <div style="background:rgba(255,255,255,0.03); border:1px solid var(--color-brand-border); padding:14px; border-radius:12px; display:inline-block; width:100%;">
-        <div style="font-size:11px; color:var(--color-text-secondary);">DISPENSER PIN CODE</div>
-        <div style="font-size:26px; font-weight:800; font-family:var(--font-mono); color:#FFF;" id="dispense-code">DJ-8492</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pickup Code & QR Voucher Modal -->
-  <div class="modal-overlay" id="voucher-modal">
-    <div class="modal-card" style="text-align:center;">
-      <div class="modal-header">
-        <h3 class="modal-title"><i class="fa-solid fa-circle-check" style="color:#10B981;"></i> ORDER CONFIRMED</h3>
-        <button class="btn-close-modal" onclick="closeModal('voucher-modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <p style="font-size:13px; color:var(--color-brand-secondary);">Station #04 • Osu Downtown Hub</p>
-
-      <div class="qr-voucher-box">
-        <div style="font-size:12px; font-weight:700; color:#444; margin-bottom:8px;">SCAN QR AT KIOSK DISPENSER</div>
-        <div style="background:#FFF; padding:16px; border-radius:12px; display:inline-block; margin-bottom:12px;">
-          <i class="fa-solid fa-qrcode" style="font-size: 80px; color:#121216;"></i>
-        </div>
-        <div>
-          <div style="font-size:11px; color:#666;">MANUAL PICKUP PIN</div>
-          <div style="font-size:28px; font-weight:800; font-family:var(--font-mono); color:var(--color-brand-primary);" id="voucher-pin-display">DJ-8492</div>
-        </div>
-      </div>
-
-      <button class="btn-primary-hero" style="width:100%; font-size:14px;" onclick="closeModal('voucher-modal')">Done & Return to Menu</button>
-    </div>
-  </div>
 
   <script src="app.js"></script>
 </body>
