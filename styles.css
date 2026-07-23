@@ -941,3 +941,94 @@ body {
   gap: 20px;
   box-shadow: var(--shadow-card);
 }
+
+/* Search Bar Styles */
+.search-bar-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.search-input {
+  background: var(--color-brand-card);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 20px;
+  padding: 8px 16px 8px 38px;
+  color: #FFF;
+  font-family: var(--font-main);
+  font-size: 13px;
+  width: 260px;
+  outline: none;
+  transition: border-color 0.2s ease, width 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--color-brand-primary);
+  width: 300px;
+  box-shadow: 0 0 10px rgba(255, 85, 0, 0.2);
+}
+
+/* Card Image Wrapper & Badges */
+.card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.menu-item-card:hover .card-img-wrap img {
+  transform: scale(1.06);
+}
+
+.badge-spice {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(18, 18, 22, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+/* Toast Popup Notification */
+.toast-popup {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--gradient-flame);
+  color: #FFF;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 10px 25px rgba(255, 85, 0, 0.4);
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.toast-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
