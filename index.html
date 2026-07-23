@@ -3,485 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>De Joe Fast Food - Figma UI Designs & Interactive Vending App</title>
+  <title>De Joe Fast Food - Smart Vending & Fast Casual Restaurant</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Top Figma Header Toolbar -->
-  <header class="figma-header">
-    <div class="header-left">
-      <div class="figma-logo-badge">
-        <img src="assets/logo.jpg" alt="De Joe Logo">
-        <span>De Joe Fast Food • Figma Studio</span>
+  <!-- App Header & Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="app-brand">
+        <img src="assets/logo.jpg" alt="De Joe Fast Food Logo">
+        <div>
+          <div class="app-brand-title">DE JOE FAST FOOD</div>
+          <div class="app-brand-sub">Smart Vending & Fast Casual • Accra</div>
+        </div>
       </div>
-      
-      <div class="mode-switcher">
-        <button class="mode-btn active" id="btn-mode-canvas" onclick="switchViewMode('canvas')">
-          <i class="fa-solid fa-layer-group"></i> Figma Canvas
-        </button>
-        <button class="mode-btn" id="btn-mode-live" onclick="switchViewMode('live')">
-          <i class="fa-solid fa-utensils"></i> Live Vending App
-        </button>
-      </div>
-    </div>
 
-    <div class="header-center">
-      <div class="figma-tools">
-        <button class="tool-icon active" title="Select (V)"><i class="fa-solid fa-mouse-pointer"></i></button>
-        <button class="tool-icon" title="Frame (F)"><i class="fa-solid fa-border-all"></i></button>
-        <button class="tool-icon" title="Text (T)"><i class="fa-solid fa-font"></i></button>
-        <button class="tool-icon" title="Components (Shift+I)"><i class="fa-solid fa-cubes"></i></button>
-        <button class="tool-icon" title="Hand Tool (H)"><i class="fa-solid fa-hand"></i></button>
+      <div class="app-location-badge">
+        <i class="fa-solid fa-location-dot"></i> Station #04 - Osu Downtown Hub <span class="status-dot"></span> Online
       </div>
-    </div>
 
-    <div class="header-right">
-      <span style="font-size: 11px; font-family: var(--font-mono); color: var(--color-text-muted);" id="zoom-text">100%</span>
-      <button class="tool-icon" onclick="adjustZoom(-0.1)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-      <button class="tool-icon" onclick="adjustZoom(0.1)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-      <button class="tool-icon" onclick="resetZoom()" title="Reset Zoom"><i class="fa-solid fa-rotate-left"></i></button>
-      
-      <button class="btn-present" onclick="switchViewMode('live')">
-        <i class="fa-solid fa-play"></i> Present Prototype
-      </button>
+      <div class="header-actions">
+        <button class="cart-btn-floating" onclick="openCartDrawer()">
+          <i class="fa-solid fa-cart-shopping"></i> Cart
+          <span class="cart-count-badge" id="live-cart-count">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Studio Workspace (Figma Mode) -->
-  <div class="studio-container" id="studio-workspace">
-
-    <!-- Left Layers Panel -->
-    <aside class="figma-sidebar-left">
-      <div class="sidebar-section-title">Design Frames</div>
-      <ul class="layer-list">
-        <li class="layer-item active" onclick="selectFrame('frame-hero')">
-          <span class="layer-icon"><i class="fa-solid fa-desktop"></i></span>
-          <span>1. Hero & Brand Concept</span>
-        </li>
-        <li class="layer-item" onclick="selectFrame('frame-vending')">
-          <span class="layer-icon"><i class="fa-solid fa-mobile-screen"></i></span>
-          <span>2. Smart Vending Kiosk</span>
-        </li>
-        <li class="layer-item" onclick="selectFrame('frame-menu')">
-          <span class="layer-icon"><i class="fa-solid fa-list-check"></i></span>
-          <span>3. Interactive Food Menu</span>
-        </li>
-        <li class="layer-item" onclick="selectFrame('frame-cart')">
-          <span class="layer-icon"><i class="fa-solid fa-qrcode"></i></span>
-          <span>4. Cart & Pickup Voucher</span>
-        </li>
-        <li class="layer-item" onclick="selectFrame('frame-tokens')">
-          <span class="layer-icon"><i class="fa-solid fa-palette"></i></span>
-          <span>5. Design System Tokens</span>
-        </li>
-      </ul>
-
-      <div class="sidebar-section-title">Component Assets</div>
-      <ul class="layer-list">
-        <li class="layer-item"><i class="fa-solid fa-cubes"></i> Button Primary</li>
-        <li class="layer-item"><i class="fa-solid fa-cubes"></i> Vending Slot Card</li>
-        <li class="layer-item"><i class="fa-solid fa-cubes"></i> Food Customizer Drawer</li>
-        <li class="layer-item"><i class="fa-solid fa-cubes"></i> Pickup QR Voucher</li>
-      </ul>
-    </aside>
-
-    <!-- Canvas Viewport -->
-    <main class="canvas-view" id="canvas-view">
-      <div class="canvas-viewport" id="canvas-viewport">
-
-        <!-- FRAME 1: Hero & Brand Identity Concept -->
-        <div class="artboard-frame selected" id="frame-hero" onclick="inspectElement('Frame 1: Hero & Brand Concept', '900 x 600', '#121216', 'flex-direction: column; padding: 40px; border-radius: 12px;')">
-          <div class="frame-label"><i class="fa-solid fa-desktop"></i> 01 - Hero & Brand Concept (900 × 600)</div>
-          <div class="frame-content-hero">
-            
-            <div class="hero-brand-header">
-              <div class="hero-logo-box">
-                <img src="assets/logo.jpg" alt="Logo">
-                <div class="hero-logo-text">
-                  <h2>DE JOE FAST FOOD</h2>
-                  <p>REAL FOOD • AUTOMATED VENDING & KIOSKS</p>
-                </div>
-              </div>
-              <span class="kiosk-status-tag"><i class="fa-solid fa-bolt"></i> 24/7 Smart Dispenser</span>
+  <!-- Main Web App Container -->
+  <main class="app-main-content">
+    
+    <!-- Hero Banner Section -->
+    <section class="hero-banner-section">
+      <div class="hero-layout-grid">
+        <div class="hero-text-content">
+          <div class="hero-pill-badge"><i class="fa-solid fa-fire"></i> Fresh Automated Meals Under 60 Seconds</div>
+          <h1 class="hero-heading">Smoky Jollof, Suya Grill & Gourmet Smash Burgers</h1>
+          <p class="hero-description">
+            Order online for instant pickup or grab your hot automated meal directly from De Joe Vending Stations across Accra & major hubs.
+          </p>
+          
+          <div class="hero-stats-row">
+            <div class="stat-box">
+              <span class="stat-number">60s</span>
+              <span class="stat-label">Dispense Time</span>
             </div>
-
-            <div class="hero-main-layout">
-              <div>
-                <div class="hero-title-tag"><i class="fa-solid fa-fire"></i> Fresh Hot Meals in Under 60 Seconds</div>
-                <h1>Smoky Jollof, Suya Grill & Gourmet Smash Burgers</h1>
-                <p>Order online or grab your freshly automated hot meal directly from De Joe Vending Stations across Accra & major hubs.</p>
-                <div class="hero-actions">
-                  <button class="btn-primary-hero" onclick="switchViewMode('live')"><i class="fa-solid fa-utensils"></i> Order at Vending Slot</button>
-                  <button class="btn-secondary-hero" onclick="selectFrame('frame-menu')"><i class="fa-solid fa-book-open"></i> Explore Menu</button>
-                </div>
-              </div>
-
-              <div class="hero-image-showcase">
-                <img src="assets/jollof_combo.jpg" alt="Jollof Combo">
-                <div class="hero-badge-floating">
-                  <div class="badge-pulse"></div>
-                  <div>
-                    <div style="font-weight:700; font-size:12px; color:#fff;">Signature Jollof Bowl</div>
-                    <div style="font-size:10px; color:var(--color-brand-secondary);">Dispensing Temp: 78°C</div>
-                  </div>
-                </div>
-              </div>
+            <div class="stat-box">
+              <span class="stat-number">78°C</span>
+              <span class="stat-label">Serving Temp</span>
             </div>
+            <div class="stat-box">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Smart Kiosks</span>
+            </div>
+          </div>
 
+          <div class="hero-actions-row">
+            <button class="btn-primary-hero" onclick="scrollToMenu()"><i class="fa-solid fa-utensils"></i> Order From Menu</button>
+            <button class="btn-secondary-hero" onclick="openCartDrawer()"><i class="fa-solid fa-qrcode"></i> Scan Pickup Code</button>
           </div>
         </div>
 
-        <!-- FRAME 2: Smart Vending Kiosk Interface -->
-        <div class="artboard-frame" id="frame-vending" onclick="inspectElement('Frame 2: Vending Terminal UI', '420 x 760', '#0D0D11', 'border: 4px solid #282834; border-radius: 28px;')">
-          <div class="frame-label"><i class="fa-solid fa-mobile-screen"></i> 02 - Touchscreen Vending Kiosk (420 × 760)</div>
-          <div class="frame-content-vending">
-            
-            <div class="kiosk-header">
-              <div class="kiosk-station-info">
-                <h4>Vending Station #04</h4>
-                <p><i class="fa-solid fa-location-dot"></i> Osu Oxford Street Hub</p>
-              </div>
-              <span class="kiosk-status-tag">Ready</span>
+        <div class="hero-media-wrapper">
+          <img src="assets/jollof_combo.jpg" alt="Signature Jollof Feast" class="hero-main-img">
+          <div class="hero-floating-card">
+            <div class="pulse-indicator"></div>
+            <div>
+              <div style="font-weight:800; font-size:13px; color:#FFF;">Signature Jollof Feast</div>
+              <div style="font-size:11px; color:var(--color-brand-secondary);">GH₵ 120.00 • Hot Dispense Ready</div>
             </div>
-
-            <div style="font-size:13px; font-weight:700; color:#FFF;">Quick Vending Slots</div>
-
-            <div class="vending-grid">
-              
-              <div class="vending-slot-card">
-                <span class="vending-slot-code">SLOT A1</span>
-                <img src="assets/smash_burger.jpg" alt="Burger">
-                <div class="vending-slot-title">Double Smash Burger</div>
-                <div class="vending-slot-footer">
-                  <span class="vending-price">$8.50</span>
-                  <button class="vending-btn-tap">+</button>
-                </div>
-              </div>
-
-              <div class="vending-slot-card">
-                <span class="vending-slot-code">SLOT A2</span>
-                <img src="assets/jollof_combo.jpg" alt="Jollof Combo">
-                <div class="vending-slot-title">Smoky Jollof & Chicken</div>
-                <div class="vending-slot-footer">
-                  <span class="vending-price">$12.00</span>
-                  <button class="vending-btn-tap">+</button>
-                </div>
-              </div>
-
-              <div class="vending-slot-card">
-                <span class="vending-slot-code">SLOT B1</span>
-                <img src="assets/loaded_fries.jpg" alt="Fries">
-                <div class="vending-slot-title">Loaded Vending Fries</div>
-                <div class="vending-slot-footer">
-                  <span class="vending-price">$6.50</span>
-                  <button class="vending-btn-tap">+</button>
-                </div>
-              </div>
-
-              <div class="vending-slot-card">
-                <span class="vending-slot-code">SLOT B2</span>
-                <img src="assets/mango_shake.jpg" alt="Shake">
-                <div class="vending-slot-title">Tropical Mango Shake</div>
-                <div class="vending-slot-footer">
-                  <span class="vending-price">$4.50</span>
-                  <button class="vending-btn-tap">+</button>
-                </div>
-              </div>
-
-            </div>
-
-            <div style="margin-top:auto; background:var(--color-brand-card); padding:14px; border-radius:16px; border:1px solid var(--color-brand-border); text-align:center;">
-              <div style="font-size:11px; color:var(--color-text-secondary); margin-bottom:6px;">TAP OR SCAN QR FOR INSTANT DISPENSE</div>
-              <button class="btn-primary-hero" style="width:100%; font-size:12px; padding:10px;" onclick="switchViewMode('live')"><i class="fa-solid fa-qrcode"></i> Scan Order Code</button>
-            </div>
-
           </div>
         </div>
-
-        <!-- FRAME 3: Interactive Menu & Customizer -->
-        <div class="artboard-frame" id="frame-menu" onclick="inspectElement('Frame 3: Menu & Customizer', '800 x 600', '#121216', 'display: flex; flex-direction: column; gap: 20px;')">
-          <div class="frame-label"><i class="fa-solid fa-list-check"></i> 03 - Menu & Customization Grid (800 × 600)</div>
-          <div class="frame-content-menu">
-            
-            <div class="menu-filter-bar">
-              <span class="menu-chip active">All Items</span>
-              <span class="menu-chip">Signature Combos</span>
-              <span class="menu-chip">Jollof & Grill</span>
-              <span class="menu-chip">Smash Burgers</span>
-              <span class="menu-chip">Loaded Sides</span>
-              <span class="menu-chip">Drinks & Shakes</span>
-            </div>
-
-            <div class="menu-cards-grid">
-              
-              <div class="menu-item-card">
-                <img src="assets/jollof_combo.jpg" class="menu-item-img" alt="Jollof">
-                <div class="menu-item-body">
-                  <div class="menu-item-header">
-                    <span class="menu-item-name">De Joe Jollof Feast</span>
-                    <span class="spice-tag">🌶️🌶️</span>
-                  </div>
-                  <p class="menu-item-desc">Smoky firewood jollof rice, grilled chicken leg quarter, fried plantain & spicy shito sauce.</p>
-                  <div class="menu-item-bottom">
-                    <span class="vending-price">$12.00</span>
-                    <button class="vending-btn-tap" onclick="openCustomizeModal('De Joe Jollof Feast', 12.00, 'assets/jollof_combo.jpg')">+</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="menu-item-card">
-                <img src="assets/smash_burger.jpg" class="menu-item-img" alt="Burger">
-                <div class="menu-item-body">
-                  <div class="menu-item-header">
-                    <span class="menu-item-name">Double Bacon Smash</span>
-                    <span class="spice-tag">🧀</span>
-                  </div>
-                  <p class="menu-item-desc">Twin beef patties, melted cheddar, crispy bacon, house pickles, & De Joe secret sauce.</p>
-                  <div class="menu-item-bottom">
-                    <span class="vending-price">$8.50</span>
-                    <button class="vending-btn-tap" onclick="openCustomizeModal('Double Bacon Smash', 8.50, 'assets/smash_burger.jpg')">+</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="menu-item-card">
-                <img src="assets/loaded_fries.jpg" class="menu-item-img" alt="Fries">
-                <div class="menu-item-body">
-                  <div class="menu-item-header">
-                    <span class="menu-item-name">Vending Loaded Fries</span>
-                    <span class="spice-tag">🌶️</span>
-                  </div>
-                  <p class="menu-item-desc">Crispy golden fries loaded with spicy melted cheese sauce, jalapenos, and green onions.</p>
-                  <div class="menu-item-bottom">
-                    <span class="vending-price">$6.50</span>
-                    <button class="vending-btn-tap" onclick="openCustomizeModal('Vending Loaded Fries', 6.50, 'assets/loaded_fries.jpg')">+</button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-        <!-- FRAME 4: Cart & Pickup Code Frame -->
-        <div class="artboard-frame" id="frame-cart" onclick="inspectElement('Frame 4: Cart & QR Voucher', '380 x 600', '#1A1A22', 'border-radius: 20px; padding: 24px;')">
-          <div class="frame-label"><i class="fa-solid fa-qrcode"></i> 04 - Order Voucher & QR Pickup (380 × 600)</div>
-          <div class="frame-content-cart">
-            
-            <div style="text-align:center;">
-              <h3 style="font-size:16px; font-weight:800; color:#FFF; margin-bottom:4px;">ORDER CONFIRMED</h3>
-              <p style="font-size:12px; color:var(--color-brand-secondary);">Station #04 • Slot Dispenser Ready</p>
-            </div>
-
-            <div class="qr-voucher-box">
-              <div style="font-size:12px; font-weight:700; color:#444;">SCAN AT AUTOMATED KIOSK</div>
-              <div class="qr-code-img">
-                <i class="fa-solid fa-qrcode" style="font-size: 64px;"></i>
-              </div>
-              <div>
-                <div style="font-size:11px; color:#666;">MANUAL PICKUP CODE</div>
-                <div class="voucher-pin">DJ-8492</div>
-              </div>
-            </div>
-
-            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--color-brand-border); padding:14px; border-radius:12px;">
-              <div style="font-size:12px; font-weight:700; color:#FFF; margin-bottom:8px;">Order Summary</div>
-              <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;">
-                <span>1x De Joe Jollof Feast</span>
-                <span>$12.00</span>
-              </div>
-              <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;">
-                <span>1x Tropical Mango Shake</span>
-                <span>$4.50</span>
-              </div>
-              <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:800; color:var(--color-brand-secondary); margin-top:8px; border-top:1px dashed #333; padding-top:8px;">
-                <span>Total Amount Paid</span>
-                <span>$16.50</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- FRAME 5: Design System Tokens -->
-        <div class="artboard-frame" id="frame-tokens" onclick="inspectElement('Frame 5: Design System Tokens', '650 x 600', '#121216', 'display: flex; flex-direction: column; gap: 24px;')">
-          <div class="frame-label"><i class="fa-solid fa-palette"></i> 05 - Design Tokens & Styles (650 × 600)</div>
-          <div class="frame-content-tokens">
-            
-            <h3 style="font-size:18px; font-weight:800; color:#FFF;">Color Palette & Tokens</h3>
-            <div class="token-swatches">
-              <div class="swatch-item">
-                <div class="swatch-color" style="background:#FF5500;"></div>
-                <span class="swatch-name">Brand Primary</span>
-                <span class="swatch-hex">#FF5500</span>
-              </div>
-              <div class="swatch-item">
-                <div class="swatch-color" style="background:#FFB800;"></div>
-                <span class="swatch-name">Brand Gold</span>
-                <span class="swatch-hex">#FFB800</span>
-              </div>
-              <div class="swatch-item">
-                <div class="swatch-color" style="background:#121216;"></div>
-                <span class="swatch-name">Surface Dark</span>
-                <span class="swatch-hex">#121216</span>
-              </div>
-              <div class="swatch-item">
-                <div class="swatch-color" style="background:#1A1A22;"></div>
-                <span class="swatch-name">Card Dark</span>
-                <span class="swatch-hex">#1A1A22</span>
-              </div>
-              <div class="swatch-item">
-                <div class="swatch-color" style="background:#10B981;"></div>
-                <span class="swatch-name">Status Active</span>
-                <span class="swatch-hex">#10B981</span>
-              </div>
-            </div>
-
-            <h3 style="font-size:18px; font-weight:800; color:#FFF;">Typography Scale</h3>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div style="font-size:32px; font-weight:800; color:#FFF;">Heading 1 / Plus Jakarta Sans 32px Bold</div>
-              <div style="font-size:20px; font-weight:700; color:#FFF;">Heading 2 / Plus Jakarta Sans 20px SemiBold</div>
-              <div style="font-size:14px; font-weight:500; color:var(--color-text-secondary);">Body Text / Plus Jakarta Sans 14px Medium</div>
-              <div style="font-size:12px; font-family:var(--font-mono); color:var(--color-brand-secondary);">Code Spec / JetBrains Mono 12px</div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
-    </main>
+    </section>
 
-    <!-- Right Sidebar - Design Inspector -->
-    <aside class="figma-sidebar-right">
-      <div class="inspector-tabs">
-        <div class="inspector-tab active" id="tab-inspect" onclick="switchInspectorTab('inspect')">Inspect</div>
-        <div class="inspector-tab" id="tab-tokens" onclick="switchInspectorTab('tokens')">Tokens</div>
-        <div class="inspector-tab" id="tab-export" onclick="switchInspectorTab('export')">Export</div>
+    <!-- Interactive Menu Section -->
+    <section id="live-menu-section" class="menu-section">
+      <div class="menu-header-bar">
+        <div>
+          <h2 class="section-title">Today's Vending & Kiosk Menu</h2>
+          <p class="section-subtitle">Freshly prepared ingredients served hot at automated stations</p>
+        </div>
+
+        <div class="menu-controls">
+          <div class="search-bar-wrap">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="menu-search-input" placeholder="Search menu (e.g. Jollof, Suya, Wings)..." class="search-input">
+          </div>
+
+          <div class="menu-filter-bar">
+            <span class="menu-chip active" onclick="filterLiveMenu('all', this)">All Items</span>
+            <span class="menu-chip" onclick="filterLiveMenu('jollof', this)">Jollof & Grill</span>
+            <span class="menu-chip" onclick="filterLiveMenu('burger', this)">Smash Burgers</span>
+            <span class="menu-chip" onclick="filterLiveMenu('sides', this)">Loaded Sides</span>
+            <span class="menu-chip" onclick="filterLiveMenu('drinks', this)">Shakes & Drinks</span>
+          </div>
+        </div>
       </div>
 
-      <div class="inspector-body" id="inspector-content">
-        
-        <div class="inspect-property-group">
-          <span class="prop-title">Selected Layer</span>
-          <div style="font-size:13px; font-weight:700; color:#FFF;" id="inspect-layer-name">Frame 1: Hero & Brand Concept</div>
-        </div>
-
-        <div class="inspect-property-group">
-          <span class="prop-title">Layout & Bounds</span>
-          <div class="prop-grid">
-            <div class="prop-field"><span>W</span> <strong id="inspect-w">900px</strong></div>
-            <div class="prop-field"><span>H</span> <strong id="inspect-h">600px</strong></div>
-          </div>
-        </div>
-
-        <div class="inspect-property-group">
-          <span class="prop-title">Fill & Background</span>
-          <div class="prop-field">
-            <span style="display:flex; align-items:center; gap:6px;">
-              <span style="width:12px; height:12px; background:#121216; border-radius:3px; display:inline-block;" id="inspect-color-preview"></span>
-              Fill Color
-            </span>
-            <strong id="inspect-fill">#121216</strong>
-          </div>
-        </div>
-
-        <div class="inspect-property-group">
-          <span class="prop-title">Generated CSS Code</span>
-          <div class="code-snippet-box" id="inspect-css-snippet">/* CSS Specs */
-width: 900px;
-height: 600px;
-background: #121216;
-border-radius: 12px;
-padding: 40px;</div>
-        </div>
-
-        <button class="btn-primary-hero" style="width:100%; font-size:12px; margin-top: auto;" onclick="copyCSSCode()"><i class="fa-solid fa-copy"></i> Copy CSS Properties</button>
-
+      <div class="menu-cards-grid" id="live-menu-grid">
+        <!-- Dynamically populated via JS -->
       </div>
-    </aside>
+    </section>
 
+  </main>
+
+  <!-- Item Customization Modal -->
+  <div class="modal-overlay" id="customize-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-item-title">Customize Item</h3>
+        <button class="btn-close-modal" onclick="closeModal('customize-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-item-preview">
+        <img src="" id="modal-item-img" alt="Food Item">
+        <div>
+          <div class="modal-item-price-tag" id="modal-item-price">GH₵ 0.00</div>
+          <div style="font-size:12px; color:var(--color-text-secondary);">Select options for automated preparation.</div>
+        </div>
+      </div>
+
+      <div class="modal-option-group">
+        <div class="option-label">SPICINESS LEVEL</div>
+        <div class="spice-options-grid">
+          <button class="menu-chip active" style="text-align:center;">Mild</button>
+          <button class="menu-chip" style="text-align:center;">Medium Suya</button>
+          <button class="menu-chip" style="text-align:center;">Flame Hot 🔥</button>
+        </div>
+      </div>
+
+      <div class="modal-option-group">
+        <div class="option-label">EXTRA ADD-ONS</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <label class="checkbox-option">
+            <span><input type="checkbox" id="addon-1"> Extra Grilled Chicken Quarter</span>
+            <span class="addon-price">+GH₵ 35.00</span>
+          </label>
+          <label class="checkbox-option">
+            <span><input type="checkbox" id="addon-2"> Melted Spicy Cheddar Dip</span>
+            <span class="addon-price">+GH₵ 15.00</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn-primary-hero" style="width:100%; margin-top:10px;" id="modal-add-btn">
+        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+      </button>
+    </div>
   </div>
 
-  <!-- LIVE INTERACTIVE VENDING APP VIEW MODE -->
-  <div class="live-app-view" id="live-app-workspace">
-    <div class="live-app-container">
-      
-      <!-- Live Web App Navbar -->
-      <nav class="app-navbar">
-        <div class="app-brand">
-          <img src="assets/logo.jpg" alt="Logo">
-          <div>
-            <div class="app-brand-title">DE JOE FAST FOOD</div>
-            <div style="font-size:11px; color:var(--color-brand-secondary);">Smart Vending & Fast Casual</div>
-          </div>
+  <!-- Cart Drawer Modal -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-shopping-bag"></i> Your Vending Order</h3>
+        <button class="btn-close-modal" onclick="closeModal('cart-modal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="cart-items-container" id="cart-items-list">
+        <!-- Dynamic Cart Items -->
+      </div>
+
+      <div class="cart-footer-summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">GH₵ 0.00</span>
         </div>
-
-        <div class="app-location-badge">
-          <i class="fa-solid fa-location-dot"></i> Station #04 - Osu Downtown Hub (Online)
-        </div>
-
-        <button class="cart-btn-floating" onclick="openCartDrawer()">
-          <i class="fa-solid fa-cart-shopping"></i> Vending Cart
-          <span class="cart-count-badge" id="live-cart-count">0</span>
-        </button>
-      </nav>
-
-      <!-- Live Hero Section -->
-      <div class="frame-content-hero" style="width:100%; height:auto; min-height:400px; margin-bottom:40px;">
-        <div class="hero-main-layout">
-          <div>
-            <div class="hero-title-tag"><i class="fa-solid fa-fire"></i> Fresh Automated Food Kiosk</div>
-            <h1 style="font-size:48px;">Order Hot Meals Instantly from De Joe Vending Slot</h1>
-            <p>Pick up smoky Jollof rice, gourmet double smash burgers, and loaded fries within 60 seconds of order scan.</p>
-            <div class="hero-actions">
-              <button class="btn-primary-hero" onclick="scrollToMenu()"><i class="fa-solid fa-utensils"></i> Browse Vending Menu</button>
-            </div>
-          </div>
-          <div class="hero-image-showcase" style="height:280px;">
-            <img src="assets/jollof_combo.jpg" alt="Hero Combo">
-          </div>
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span id="cart-total">GH₵ 0.00</span>
         </div>
       </div>
 
-      <!-- Menu Section -->
-      <section id="live-menu-section">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
-          <div>
-            <h2 style="font-size:24px; font-weight:800; color:#FFF; margin-bottom:4px;">Today's Vending Menu</h2>
-            <p style="font-size:12px; color:var(--color-brand-secondary);">Select hot meals for instant dispensing</p>
-          </div>
-
-          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-            <div class="search-bar-wrap">
-              <i class="fa-solid fa-magnifying-glass search-icon"></i>
-              <input type="text" id="menu-search-input" placeholder="Search menu (e.g. Jollof, Wings, Burger)..." class="search-input">
-            </div>
-
-            <div class="menu-filter-bar">
-              <span class="menu-chip active" onclick="filterLiveMenu('all', this)">All Items</span>
-              <span class="menu-chip" onclick="filterLiveMenu('jollof', this)">Jollof & Grill</span>
-              <span class="menu-chip" onclick="filterLiveMenu('burger', this)">Smash Burgers</span>
-              <span class="menu-chip" onclick="filterLiveMenu('sides', this)">Loaded Sides</span>
-              <span class="menu-chip" onclick="filterLiveMenu('drinks', this)">Shakes & Drinks</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="menu-cards-grid" id="live-menu-grid">
-          <!-- Dynamically populated via JS -->
-        </div>
-      </section>
-
+      <button class="btn-primary-hero" style="width:100%; font-size:14px;" onclick="processCheckout()">
+        <i class="fa-solid fa-qrcode"></i> Generate Pickup Voucher
+      </button>
     </div>
   </div>
 
   <!-- Interactive Vending Dispenser Simulator Modal -->
   <div class="modal-overlay" id="dispense-modal">
     <div class="modal-card" style="text-align:center;">
-      <div style="font-size:42px; color:var(--color-brand-primary); margin-bottom:12px;">
+      <div style="font-size:48px; color:var(--color-brand-primary); margin-bottom:12px;">
         <i class="fa-solid fa-gear fa-spin"></i>
       </div>
       <h3 style="font-size:20px; font-weight:800; color:#FFF; margin-bottom:6px;">AUTOMATED VENDING KIOSK</h3>
@@ -491,80 +201,35 @@ padding: 40px;</div>
         <div id="dispense-progress" style="width:20%; height:100%; background:linear-gradient(90deg, #FF5500, #FFB800); transition: width 0.8s ease;"></div>
       </div>
 
-      <div style="background:rgba(255,255,255,0.03); border:1px solid var(--color-brand-border); padding:12px; border-radius:12px; display:inline-block; width:100%;">
-        <div style="font-size:10px; color:var(--color-text-secondary);">DISPENSER PIN CODE</div>
-        <div style="font-size:24px; font-weight:800; font-family:var(--font-mono); color:#FFF;" id="dispense-code">DJ-8492</div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid var(--color-brand-border); padding:14px; border-radius:12px; display:inline-block; width:100%;">
+        <div style="font-size:11px; color:var(--color-text-secondary);">DISPENSER PIN CODE</div>
+        <div style="font-size:26px; font-weight:800; font-family:var(--font-mono); color:#FFF;" id="dispense-code">DJ-8492</div>
       </div>
     </div>
   </div>
 
-  <!-- Customization Modal -->
-  <div class="modal-overlay" id="customize-modal">
-    <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 style="font-size:18px; font-weight:800; color:#FFF;" id="modal-item-title">Customize Item</h3>
-        <button style="background:none; border:none; color:var(--color-text-secondary); font-size:18px; cursor:pointer;" onclick="closeModal('customize-modal')"><i class="fa-solid fa-xmark"></i></button>
+  <!-- Pickup Code & QR Voucher Modal -->
+  <div class="modal-overlay" id="voucher-modal">
+    <div class="modal-card" style="text-align:center;">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-circle-check" style="color:#10B981;"></i> ORDER CONFIRMED</h3>
+        <button class="btn-close-modal" onclick="closeModal('voucher-modal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <div style="display:flex; gap:16px; align-items:center;">
-        <img src="" id="modal-item-img" style="width:90px; height:80px; object-fit:cover; border-radius:12px;" alt="Food">
+      <p style="font-size:13px; color:var(--color-brand-secondary);">Station #04 • Osu Downtown Hub</p>
+
+      <div class="qr-voucher-box">
+        <div style="font-size:12px; font-weight:700; color:#444; margin-bottom:8px;">SCAN QR AT KIOSK DISPENSER</div>
+        <div style="background:#FFF; padding:16px; border-radius:12px; display:inline-block; margin-bottom:12px;">
+          <i class="fa-solid fa-qrcode" style="font-size: 80px; color:#121216;"></i>
+        </div>
         <div>
-          <div style="font-size:16px; font-weight:800; color:var(--color-brand-primary);" id="modal-item-price">$0.00</div>
-          <div style="font-size:12px; color:var(--color-text-secondary);">Select options for automated preparation.</div>
+          <div style="font-size:11px; color:#666;">MANUAL PICKUP PIN</div>
+          <div style="font-size:28px; font-weight:800; font-family:var(--font-mono); color:var(--color-brand-primary);" id="voucher-pin-display">DJ-8492</div>
         </div>
       </div>
 
-      <div>
-        <div style="font-size:12px; font-weight:700; color:var(--color-text-secondary); margin-bottom:8px;">SPICINESS LEVEL</div>
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
-          <button class="menu-chip active" style="text-align:center;">Mild</button>
-          <button class="menu-chip" style="text-align:center;">Medium Suya</button>
-          <button class="menu-chip" style="text-align:center;">Flame Hot 🔥</button>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size:12px; font-weight:700; color:var(--color-text-secondary); margin-bottom:8px;">EXTRA ADD-ONS</div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <label style="display:flex; justify-content:space-between; font-size:13px; color:#FFF; cursor:pointer;">
-            <span><input type="checkbox" id="addon-1"> Extra Grilled Chicken Leg</span>
-            <span>+$3.50</span>
-          </label>
-          <label style="display:flex; justify-content:space-between; font-size:13px; color:#FFF; cursor:pointer;">
-            <span><input type="checkbox" id="addon-2"> Melted Cheddar Dip</span>
-            <span>+$1.50</span>
-          </label>
-        </div>
-      </div>
-
-      <button class="btn-primary-hero" style="width:100%; margin-top:10px;" id="modal-add-btn"><i class="fa-solid fa-cart-plus"></i> Add to Vending Cart</button>
-    </div>
-  </div>
-
-  <!-- Cart Drawer Overlay -->
-  <div class="modal-overlay" id="cart-modal">
-    <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 style="font-size:18px; font-weight:800; color:#FFF;"><i class="fa-solid fa-shopping-bag"></i> Your Vending Order</h3>
-        <button style="background:none; border:none; color:var(--color-text-secondary); font-size:18px; cursor:pointer;" onclick="closeModal('cart-modal')"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div style="max-height:240px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;" id="cart-items-list">
-        <!-- Dynamic Cart Items -->
-      </div>
-
-      <div style="border-top:1px solid var(--color-brand-border); padding-top:14px; display:flex; flex-direction:column; gap:8px;">
-        <div style="display:flex; justify-content:space-between; font-size:13px; color:var(--color-text-secondary);">
-          <span>Subtotal</span>
-          <span id="cart-subtotal">$0.00</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:15px; font-weight:800; color:var(--color-brand-secondary);">
-          <span>Total</span>
-          <span id="cart-total">$0.00</span>
-        </div>
-      </div>
-
-      <button class="btn-primary-hero" style="width:100%; font-size:14px;" onclick="processCheckout()"><i class="fa-solid fa-qrcode"></i> Generate Pickup Voucher</button>
+      <button class="btn-primary-hero" style="width:100%; font-size:14px;" onclick="closeModal('voucher-modal')">Done & Return to Menu</button>
     </div>
   </div>
 

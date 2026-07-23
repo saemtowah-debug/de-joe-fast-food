@@ -1,27 +1,25 @@
-// De Joe Fast Food - Figma Studio & Vending Web App Logic
+// De Joe Fast Food - Premium Web Application Logic
 
-let currentZoom = 1.0;
-let currentMode = 'canvas';
 let cart = [];
 let searchQuery = '';
 let selectedCategory = 'all';
 
-// Sample Menu Data with Real High-Res Food Items
+// Menu Data with Prices in Ghanaian Cedis (GH₵)
 const menuData = [
   {
     id: 1,
     name: 'De Joe Jollof Feast',
     category: 'jollof',
-    price: 12.00,
+    price: 120.00,
     spice: '🌶️🌶️ Hot',
     img: 'assets/jollof_combo.jpg',
-    desc: 'Smoky firewood jollof rice bowl with flame-grilled quarter chicken leg, fried sweet plantains, avocado & spicy shito.'
+    desc: 'Smoky firewood Ghanaian jollof rice bowl with flame-grilled chicken leg quarter, fried sweet plantains, avocado & spicy shito.'
   },
   {
     id: 2,
-    name: 'Double Bacon Smash',
+    name: 'Double Bacon Smash Burger',
     category: 'burger',
-    price: 8.50,
+    price: 85.00,
     spice: '🧀 Mild',
     img: 'assets/smash_burger.jpg',
     desc: 'Twin crispy beef patties, melted cheddar, crispy bacon, caramelized onions & signature De Joe secret sauce.'
@@ -30,16 +28,16 @@ const menuData = [
     id: 3,
     name: 'Vending Loaded Fries',
     category: 'sides',
-    price: 6.50,
+    price: 65.00,
     spice: '🌶️ Medium',
     img: 'assets/loaded_fries.jpg',
-    desc: 'Golden crispy fries loaded with melted spicy cheese sauce, bacon bits, jalapenos & scallions.'
+    desc: 'Golden crispy fries loaded with melted spicy cheese sauce, bacon bits, jalapenos & chopped scallions.'
   },
   {
     id: 4,
-    name: 'Tropical Mango Shake',
+    name: 'Tropical Mango Passion Shake',
     category: 'drinks',
-    price: 4.50,
+    price: 45.00,
     spice: '🥭 Sweet',
     img: 'assets/mango_shake.jpg',
     desc: 'Creamy tropical mango passion fruit smoothie topped with fresh mint and whipped cream peak.'
@@ -48,16 +46,16 @@ const menuData = [
     id: 5,
     name: 'Flame Grilled Beef Suya',
     category: 'jollof',
-    price: 10.50,
+    price: 105.00,
     spice: '🔥 Fire Hot',
     img: 'assets/suya_skewers.jpg',
-    desc: 'Authentic tender beef suya skewers coated with peanut yaji spice, served with sliced onions and tomatoes.'
+    desc: 'Authentic tender beef suya skewers coated with peanut yaji spice, served with sliced red onions and ripe tomatoes.'
   },
   {
     id: 6,
-    name: 'Honey Chili Wings',
+    name: 'Honey Chili Glazed Wings',
     category: 'sides',
-    price: 7.50,
+    price: 75.00,
     spice: '🌶️ Medium',
     img: 'assets/crispy_wings.jpg',
     desc: 'Crispy fried jumbo chicken wings glazed in sweet honey chili sauce, toasted sesame seeds & ranch dip.'
@@ -81,113 +79,7 @@ function setupSearchListener() {
   }
 }
 
-// Switch between Figma Canvas Mode and Live App Mode
-function switchViewMode(mode) {
-  currentMode = mode;
-  const canvasWorkspace = document.getElementById('studio-workspace');
-  const liveWorkspace = document.getElementById('live-app-workspace');
-  const btnCanvas = document.getElementById('btn-mode-canvas');
-  const btnLive = document.getElementById('btn-mode-live');
-
-  if (mode === 'canvas') {
-    canvasWorkspace.style.display = 'flex';
-    liveWorkspace.style.display = 'none';
-    btnCanvas.classList.add('active');
-    btnLive.classList.remove('active');
-  } else {
-    canvasWorkspace.style.display = 'none';
-    liveWorkspace.style.display = 'block';
-    btnLive.classList.add('active');
-    btnCanvas.classList.remove('active');
-    renderLiveMenu();
-  }
-}
-
-// Zoom Controls for Figma Canvas
-function adjustZoom(delta) {
-  currentZoom = Math.min(Math.max(0.5, currentZoom + delta), 2.0);
-  const viewport = document.getElementById('canvas-viewport');
-  viewport.style.transform = `scale(${currentZoom})`;
-  viewport.style.transformOrigin = 'top left';
-  document.getElementById('zoom-text').innerText = `${Math.round(currentZoom * 100)}%`;
-}
-
-function resetZoom() {
-  currentZoom = 1.0;
-  adjustZoom(0);
-}
-
-// Select Artboard Frame in Figma Mode
-function selectFrame(frameId) {
-  document.querySelectorAll('.artboard-frame').forEach(frame => {
-    frame.classList.remove('selected');
-  });
-
-  const selectedFrame = document.getElementById(frameId);
-  if (selectedFrame) {
-    selectedFrame.classList.add('selected');
-    selectedFrame.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-  }
-
-  document.querySelectorAll('.layer-list .layer-item').forEach(item => {
-    item.classList.remove('active');
-    if (item.getAttribute('onclick')?.includes(frameId)) {
-      item.classList.add('active');
-    }
-  });
-}
-
-// Inspect Element Property Update in Right Sidebar
-function inspectElement(layerName, bounds, fillHex, cssSnippet) {
-  document.getElementById('inspect-layer-name').innerText = layerName;
-  const [w, h] = bounds.split(' x ');
-  document.getElementById('inspect-w').innerText = w + (w.includes('px') ? '' : 'px');
-  document.getElementById('inspect-h').innerText = h + (h.includes('px') ? '' : 'px');
-  document.getElementById('inspect-fill').innerText = fillHex;
-  document.getElementById('inspect-color-preview').style.background = fillHex;
-  
-  document.getElementById('inspect-css-snippet').innerText = `/* CSS Specs for ${layerName} */\nwidth: ${w};\nheight: ${h};\nbackground: ${fillHex};\n${cssSnippet}`;
-}
-
-function copyCSSCode() {
-  const code = document.getElementById('inspect-css-snippet').innerText;
-  navigator.clipboard.writeText(code);
-  showToast('CSS Specs copied to clipboard!');
-}
-
-function switchInspectorTab(tabName) {
-  document.querySelectorAll('.inspector-tab').forEach(tab => tab.classList.remove('active'));
-  document.getElementById(`tab-${tabName}`).classList.add('active');
-
-  const container = document.getElementById('inspector-content');
-  if (tabName === 'tokens') {
-    container.innerHTML = `
-      <div class="inspect-property-group">
-        <span class="prop-title">Design System Tokens</span>
-        <div style="display:flex; flex-direction:column; gap:10px; font-size:12px;">
-          <div><strong style="color:var(--color-brand-primary);">--color-brand-primary:</strong> #FF5500</div>
-          <div><strong style="color:var(--color-brand-secondary);">--color-brand-secondary:</strong> #FFB800</div>
-          <div><strong style="color:#FFF;">--color-brand-dark:</strong> #0A0A0C</div>
-          <div><strong style="color:#FFF;">--color-brand-surface:</strong> #121216</div>
-        </div>
-      </div>
-    `;
-  } else if (tabName === 'export') {
-    container.innerHTML = `
-      <div class="inspect-property-group">
-        <span class="prop-title">Export Artboard</span>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <button class="btn-secondary-hero" onclick="showToast('Exporting PNG Frame...')"><i class="fa-solid fa-download"></i> Export as PNG 2x</button>
-          <button class="btn-secondary-hero" onclick="showToast('Exporting SVG Vector...')"><i class="fa-solid fa-code"></i> Export SVG</button>
-        </div>
-      </div>
-    `;
-  } else {
-    location.reload();
-  }
-}
-
-// Live Vending App Logic with Filtering & Real-time Search
+// Render Menu Items Grid
 function renderLiveMenu() {
   const grid = document.getElementById('live-menu-grid');
   if (!grid) return;
@@ -205,7 +97,7 @@ function renderLiveMenu() {
   }
 
   if (filtered.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--color-text-muted);">No items matched your search query "${searchQuery}"</div>`;
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 50px; color: var(--color-text-muted);">No items matched your search query "${searchQuery}"</div>`;
     return;
   }
 
@@ -221,7 +113,7 @@ function renderLiveMenu() {
         </div>
         <p class="menu-item-desc">${item.desc}</p>
         <div class="menu-item-bottom">
-          <span class="vending-price">$${item.price.toFixed(2)}</span>
+          <span class="vending-price">GH₵ ${item.price.toFixed(2)}</span>
           <button class="vending-btn-tap" onclick="openCustomizeModal(${item.id})">
             <i class="fa-solid fa-plus"></i> Customize & Add
           </button>
@@ -246,17 +138,17 @@ function openCustomizeModal(itemId) {
 
   activeItemForModal = item;
   document.getElementById('modal-item-title').innerText = `Customize ${item.name}`;
-  document.getElementById('modal-item-price').innerText = `$${item.price.toFixed(2)}`;
+  document.getElementById('modal-item-price').innerText = `GH₵ ${item.price.toFixed(2)}`;
   document.getElementById('modal-item-img').src = item.img;
   
-  // Uncheck add-ons
+  // Reset checkboxes
   document.getElementById('addon-1').checked = false;
   document.getElementById('addon-2').checked = false;
 
   document.getElementById('modal-add-btn').onclick = () => {
     let extraPrice = 0;
-    if (document.getElementById('addon-1').checked) extraPrice += 3.50;
-    if (document.getElementById('addon-2').checked) extraPrice += 1.50;
+    if (document.getElementById('addon-1').checked) extraPrice += 35.00;
+    if (document.getElementById('addon-2').checked) extraPrice += 15.00;
 
     addToCart(item.name, item.price + extraPrice, item.img);
     closeModal('customize-modal');
@@ -266,7 +158,8 @@ function openCustomizeModal(itemId) {
 }
 
 function closeModal(modalId) {
-  document.getElementById(modalId).classList.remove('open');
+  const modal = document.getElementById(modalId);
+  if (modal) modal.classList.remove('open');
 }
 
 function addToCart(name, price, img) {
@@ -286,22 +179,22 @@ function updateCartUI() {
     list.innerHTML = `<div style="text-align:center; font-size:13px; color:var(--color-text-muted); padding:30px;"><i class="fa-solid fa-basket-shopping" style="font-size:32px; margin-bottom:10px; display:block;"></i>Your vending cart is empty</div>`;
   } else {
     list.innerHTML = cart.map(item => `
-      <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:10px; border-radius:10px; border:1px solid var(--color-brand-border);">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <img src="${item.img}" style="width:45px; height:45px; border-radius:8px; object-fit:cover;">
+      <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:12px; border-radius:12px; border:1px solid var(--color-brand-border);">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <img src="${item.img}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;">
           <div>
-            <div style="font-size:13px; font-weight:700; color:#FFF;">${item.name}</div>
-            <div style="font-size:11px; color:var(--color-brand-primary); font-weight:700;">$${item.price.toFixed(2)}</div>
+            <div style="font-size:14px; font-weight:700; color:#FFF;">${item.name}</div>
+            <div style="font-size:12px; color:var(--color-brand-primary); font-weight:700;">GH₵ ${item.price.toFixed(2)}</div>
           </div>
         </div>
-        <button style="background:none; border:none; color:#EF4444; cursor:pointer; font-size:14px; padding:6px;" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
+        <button style="background:none; border:none; color:#EF4444; cursor:pointer; font-size:16px; padding:6px;" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
       </div>
     `).join('');
   }
 
   const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-  document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
-  document.getElementById('cart-total').innerText = `$${subtotal.toFixed(2)}`;
+  document.getElementById('cart-subtotal').innerText = `GH₵ ${subtotal.toFixed(2)}`;
+  document.getElementById('cart-total').innerText = `GH₵ ${subtotal.toFixed(2)}`;
 }
 
 function removeFromCart(id) {
@@ -322,19 +215,12 @@ function processCheckout() {
     return;
   }
   closeModal('cart-modal');
-  
-  // Show Interactive Dispense Simulator Modal
   openDispenseSimulator();
 }
 
 function openDispenseSimulator() {
   const modal = document.getElementById('dispense-modal');
-  if (!modal) {
-    // Fallback if modal not present
-    switchViewMode('canvas');
-    selectFrame('frame-cart');
-    return;
-  }
+  if (!modal) return;
 
   const statusText = document.getElementById('dispense-status-text');
   const progressBar = document.getElementById('dispense-progress');
@@ -349,7 +235,7 @@ function openDispenseSimulator() {
   const steps = [
     { text: 'Verifying QR Voucher & Payment...', pct: 25 },
     { text: 'Heating Vending Chamber to 78°C...', pct: 50 },
-    { text: 'Dispensing items to Slot A1...', pct: 85 },
+    { text: 'Dispensing items to Kiosk Slot A1...', pct: 85 },
     { text: 'Order Dispensed! Pick up at Station Door.', pct: 100 }
   ];
 
@@ -362,14 +248,23 @@ function openDispenseSimulator() {
       clearInterval(interval);
       setTimeout(() => {
         closeModal('dispense-modal');
+        // Render order voucher modal
+        openVoucherModal(pin);
         cart = [];
         updateCartUI();
-        switchViewMode('canvas');
-        selectFrame('frame-cart');
-        showToast('Voucher DJ-8492 Ready on Frame 04!');
-      }, 1500);
+      }, 1200);
     }
-  }, 1000);
+  }, 900);
+}
+
+// Open Voucher Modal with Pickup PIN & QR
+function openVoucherModal(pin) {
+  const modal = document.getElementById('voucher-modal');
+  if (modal) {
+    document.getElementById('voucher-pin-display').innerText = pin;
+    modal.classList.add('open');
+    showToast(`Order Confirmed! PIN: ${pin}`);
+  }
 }
 
 // Toast Notification Utility
