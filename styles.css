@@ -1,0 +1,943 @@
+/* De Joe Fast Food - Design System & Figma Canvas Styles */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Brand Palette */
+  --color-brand-primary: #FF5500;
+  --color-brand-primary-hover: #FF6E1A;
+  --color-brand-secondary: #FFB800;
+  --color-brand-dark: #0A0A0C;
+  --color-brand-surface: #121216;
+  --color-brand-card: #1A1A22;
+  --color-brand-card-hover: #23232E;
+  --color-brand-border: #2C2C38;
+  
+  /* Text */
+  --color-text-primary: #F3F4F6;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
+  
+  /* Figma UI System */
+  --figma-bg: #1E1E1E;
+  --figma-toolbar-bg: #2C2C2C;
+  --figma-sidebar-bg: #222222;
+  --figma-border: #383838;
+  --figma-blue: #0C8CE9;
+  --figma-selection: rgba(12, 140, 233, 0.25);
+  
+  /* Gradients */
+  --gradient-flame: linear-gradient(135deg, #FF5500 0%, #FFB800 100%);
+  --gradient-card: linear-gradient(180deg, rgba(30, 30, 40, 0.7) 0%, rgba(18, 18, 22, 0.9) 100%);
+  --gradient-hero: radial-gradient(circle at top right, rgba(255, 85, 0, 0.18), transparent 60%);
+  
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Shadows & Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-glow: 0 10px 30px rgba(255, 85, 0, 0.25);
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--figma-bg);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+
+/* App Header & Top Navigation Bar */
+.figma-header {
+  height: 52px;
+  background: var(--figma-toolbar-bg);
+  border-bottom: 1px solid var(--figma-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+  position: relative;
+}
+
+.header-left, .header-center, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.figma-logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #FFF;
+}
+
+.figma-logo-badge img {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.mode-switcher {
+  display: flex;
+  background: #181818;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--figma-border);
+}
+
+.mode-btn {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.mode-btn.active {
+  background: var(--figma-blue);
+  color: #FFF;
+  box-shadow: 0 2px 8px rgba(12, 140, 233, 0.4);
+}
+
+.figma-tools {
+  display: flex;
+  gap: 4px;
+  background: #181818;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--figma-border);
+}
+
+.tool-icon {
+  width: 32px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.tool-icon.active, .tool-icon:hover {
+  background: #333;
+  color: #FFF;
+}
+
+.btn-present {
+  background: var(--gradient-flame);
+  color: #FFF;
+  border: none;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.15s ease;
+}
+
+.btn-present:hover {
+  transform: scale(1.03);
+}
+
+/* Studio Workspace Container */
+.studio-container {
+  display: flex;
+  height: calc(100vh - 52px);
+  width: 100vw;
+  position: relative;
+}
+
+/* Left Sidebar - Layers & Frames */
+.figma-sidebar-left {
+  width: 260px;
+  background: var(--figma-sidebar-bg);
+  border-right: 1px solid var(--figma-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.sidebar-section-title {
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.layer-list {
+  list-style: none;
+  padding: 8px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.layer-item {
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.layer-item:hover {
+  background: rgba(255,255,255,0.05);
+  color: #FFF;
+}
+
+.layer-item.active {
+  background: var(--figma-selection);
+  color: var(--figma-blue);
+  font-weight: 600;
+}
+
+.layer-icon {
+  font-size: 14px;
+}
+
+/* Figma Canvas View */
+.canvas-view {
+  flex: 1;
+  background-color: #121214;
+  background-image: radial-gradient(#2A2A32 1px, transparent 1px);
+  background-size: 24px 24px;
+  overflow: auto;
+  position: relative;
+  cursor: grab;
+}
+
+.canvas-view:active {
+  cursor: grabbing;
+}
+
+.canvas-viewport {
+  padding: 80px;
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  min-width: max-content;
+}
+
+/* Artboard Design Frame Wrapper */
+.artboard-frame {
+  background: var(--color-brand-dark);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  border: 1px solid var(--color-brand-border);
+  position: relative;
+  transition: outline 0.15s ease, box-shadow 0.2s ease;
+}
+
+.artboard-frame.selected {
+  outline: 2px solid var(--figma-blue);
+  box-shadow: 0 0 0 4px rgba(12, 140, 233, 0.2), 0 20px 50px rgba(0,0,0,0.8);
+}
+
+.frame-label {
+  position: absolute;
+  top: -28px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.artboard-frame.selected .frame-label {
+  color: var(--figma-blue);
+}
+
+/* Artboard 1: Brand & Hero Concept */
+.frame-content-hero {
+  width: 900px;
+  height: 600px;
+  padding: 40px;
+  background: radial-gradient(circle at 80% 20%, rgba(255, 85, 0, 0.15), transparent 50%), var(--color-brand-surface);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-brand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-logo-box img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.hero-logo-text h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFF;
+}
+
+.hero-logo-text p {
+  font-size: 12px;
+  color: var(--color-brand-secondary);
+  font-weight: 600;
+}
+
+.hero-main-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-title-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 85, 0, 0.15);
+  color: var(--color-brand-primary);
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.hero-main-layout h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #D1D5DB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-main-layout p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.btn-primary-hero {
+  background: var(--gradient-flame);
+  color: #FFF;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  box-shadow: var(--shadow-glow);
+  cursor: pointer;
+}
+
+.btn-secondary-hero {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFF;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid var(--color-brand-border);
+  cursor: pointer;
+}
+
+.hero-image-showcase {
+  position: relative;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.hero-image-showcase img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.hero-badge-floating {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(18, 18, 22, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge-pulse {
+  width: 10px;
+  height: 10px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10B981;
+}
+
+/* Artboard 2: Smart Vending Kiosk Frame */
+.frame-content-vending {
+  width: 420px;
+  height: 760px;
+  background: #0D0D11;
+  border-radius: 28px;
+  border: 4px solid #282834;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.kiosk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-brand-card);
+  padding: 12px 16px;
+  border-radius: 16px;
+}
+
+.kiosk-station-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.kiosk-station-info p {
+  font-size: 11px;
+  color: var(--color-brand-secondary);
+}
+
+.kiosk-status-tag {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.vending-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.vending-slot-card {
+  background: var(--color-brand-card);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+}
+
+.vending-slot-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.vending-slot-code {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0,0,0,0.8);
+  color: var(--color-brand-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.vending-slot-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.vending-slot-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.vending-price {
+  font-weight: 800;
+  color: var(--color-brand-primary);
+  font-size: 14px;
+}
+
+.vending-btn-tap {
+  background: var(--color-brand-primary);
+  color: #FFF;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Artboard 3: Interactive Menu & Customizer */
+.frame-content-menu {
+  width: 800px;
+  height: 600px;
+  background: var(--color-brand-surface);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-filter-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.menu-chip {
+  padding: 8px 18px;
+  background: var(--color-brand-card);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.menu-chip.active {
+  background: var(--gradient-flame);
+  color: #FFF;
+  border-color: transparent;
+}
+
+.menu-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.menu-item-card {
+  background: var(--color-brand-card);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-brand-primary);
+}
+
+.menu-item-img {
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.menu-item-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.menu-item-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.spice-tag {
+  font-size: 11px;
+}
+
+.menu-item-desc {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.menu-item-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+/* Artboard 4: Cart & Pickup Code Frame */
+.frame-content-cart {
+  width: 380px;
+  height: 600px;
+  background: var(--color-brand-card);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.qr-voucher-box {
+  background: #FFF;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  color: #111;
+}
+
+.qr-code-img {
+  width: 130px;
+  height: 130px;
+  background: repeating-linear-gradient(45deg, #000 0, #000 10px, #fff 10px, #fff 20px);
+  border: 4px solid #000;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #000;
+}
+
+.voucher-pin {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--color-brand-primary);
+}
+
+/* Artboard 5: UI Design System Frame */
+.frame-content-tokens {
+  width: 650px;
+  height: 600px;
+  background: var(--color-brand-surface);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.token-swatches {
+  display: flex;
+  gap: 16px;
+}
+
+.swatch-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.swatch-color {
+  width: 80px;
+  height: 60px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.swatch-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.swatch-hex {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
+/* Right Sidebar - Design Inspector */
+.figma-sidebar-right {
+  width: 280px;
+  background: var(--figma-sidebar-bg);
+  border-left: 1px solid var(--figma-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.inspector-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--figma-border);
+}
+
+.inspector-tab {
+  flex: 1;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.inspector-tab.active {
+  color: #FFF;
+  border-bottom: 2px solid var(--figma-blue);
+}
+
+.inspector-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inspect-property-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prop-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.prop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.prop-field {
+  background: #181818;
+  border: 1px solid var(--figma-border);
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+.code-snippet-box {
+  background: #121212;
+  border: 1px solid var(--figma-border);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #10B981;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ============================================================ */
+/* LIVE INTERACTIVE VENDING WEB APP MODE STYLES                 */
+/* ============================================================ */
+.live-app-view {
+  width: 100vw;
+  height: calc(100vh - 52px);
+  background: var(--color-brand-dark);
+  overflow-y: auto;
+  display: none;
+}
+
+.live-app-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.app-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(18, 18, 22, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+}
+
+.app-brand-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFF;
+}
+
+.app-location-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-brand-border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--color-brand-secondary);
+  font-weight: 600;
+}
+
+.cart-btn-floating {
+  background: var(--gradient-flame);
+  color: #FFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-glow);
+}
+
+.cart-count-badge {
+  background: #FFF;
+  color: var(--color-brand-primary);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  width: 480px;
+  max-width: 90vw;
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: var(--shadow-card);
+}
