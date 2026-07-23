@@ -8,7 +8,7 @@ let state = {
   vendorTab: 'orders',      // 'orders' | 'menu-config' | 'riders' | 'sales'
   riderTab: 'assigned',     // 'assigned' | 'history' | 'scan'
   
-  // Menu Configuration (Managed by Vendor in V-4)
+  // Menu Configuration (Managed by Vendor)
   menuConfig: {
     jollofAvailable: true,
     friedRiceAvailable: true,
@@ -79,7 +79,7 @@ let state = {
     }
   ],
 
-  // Registered Riders (V-5)
+  // Registered Riders
   riders: [
     { id: 1, name: 'Kwame Osei', phone: '+233 55 444 3322', active: true },
     { id: 2, name: 'Emmanuel Tetteh', phone: '+233 27 888 9900', active: true }
@@ -100,7 +100,7 @@ const PRICES = {
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
   renderApp();
-  setInterval(refreshLiveOrderFeeds, 15000); // Silent refresh as per brief
+  setInterval(refreshLiveOrderFeeds, 15000);
 });
 
 // Portal & Tab Switcher
@@ -127,7 +127,6 @@ function switchRiderTab(tab) {
 
 // Master Render Function
 function renderApp() {
-  // Update Portal Switcher Buttons
   document.querySelectorAll('.portal-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.portal === state.activePortal);
   });
@@ -145,7 +144,7 @@ function renderApp() {
 }
 
 /* ============================================================ */
-/* 1. CUSTOMER PORTAL (C-1 to C-8)                              */
+/* 1. CUSTOMER PORTAL                                           */
 /* ============================================================ */
 function renderCustomerPortal(container) {
   let subtotal = getCartSubtotal();
@@ -157,21 +156,21 @@ function renderCustomerPortal(container) {
         <img src="assets/logo.jpg" alt="Logo">
         <div>
           <div class="brand-title">DE JOE FAST FOOD</div>
-          <div class="brand-sub">Dome, Accra • AEGIS Customer Ordering</div>
+          <div class="brand-sub">Dome, Accra • Online Ordering</div>
         </div>
       </div>
       <div class="nav-tabs">
         <button class="nav-tab ${state.customerTab === 'menu' ? 'active' : ''}" onclick="switchCustomerTab('menu')">
-          <i class="fa-solid fa-utensils"></i> C-1: Menu & Cart
+          <i class="fa-solid fa-utensils"></i> Menu & Cart
         </button>
         <button class="nav-tab ${state.customerTab === 'checkout' ? 'active' : ''}" onclick="switchCustomerTab('checkout')">
-          <i class="fa-solid fa-credit-card"></i> C-4: Checkout
+          <i class="fa-solid fa-credit-card"></i> Checkout
         </button>
         <button class="nav-tab ${state.customerTab === 'tracking' ? 'active' : ''}" onclick="switchCustomerTab('tracking')">
-          <i class="fa-solid fa-location-dot"></i> C-6: Live Tracking
+          <i class="fa-solid fa-location-dot"></i> Live Tracking
         </button>
         <button class="nav-tab ${state.customerTab === 'history' ? 'active' : ''}" onclick="switchCustomerTab('history')">
-          <i class="fa-solid fa-clock-rotate-left"></i> C-7: Order History
+          <i class="fa-solid fa-clock-rotate-left"></i> Order History
         </button>
       </div>
     </nav>
@@ -199,7 +198,7 @@ function getCustomerTabHTML(subtotal, total) {
   return '';
 }
 
-// C-1: Menu, Build & Cart
+// Menu, Build & Cart
 function renderC1MenuAndCart(subtotal, total) {
   const isJollofAvailable = state.menuConfig.jollofAvailable;
 
@@ -210,15 +209,12 @@ function renderC1MenuAndCart(subtotal, total) {
     </div>
 
     <div class="c1-grid">
-      <!-- Dish Selection & Customizer -->
       <div class="c1-menu-column">
         
-        <!-- Dishes Selection -->
         <div class="card-section">
           <h3 class="card-section-title"><i class="fa-solid fa-bowl-rice"></i> 1. Choose Main Dish</h3>
           <div class="dishes-grid">
             
-            <!-- Fried Rice Card -->
             <div class="dish-card ${state.cart.dish === 'fried_rice' ? 'selected' : ''}" onclick="selectCartDish('fried_rice')">
               <img src="assets/fried_rice.jpg" alt="Fried Rice">
               <div class="dish-card-body">
@@ -231,7 +227,6 @@ function renderC1MenuAndCart(subtotal, total) {
               </div>
             </div>
 
-            <!-- Jollof Rice Card (Subject to Vendor Daily Toggle) -->
             <div class="dish-card ${!isJollofAvailable ? 'sold-out' : (state.cart.dish === 'jollof' ? 'selected' : '')}" 
                  onclick="${isJollofAvailable ? "selectCartDish('jollof')" : ''}">
               <img src="assets/jollof_combo.jpg" alt="Firewood Jollof">
@@ -251,7 +246,6 @@ function renderC1MenuAndCart(subtotal, total) {
           </div>
         </div>
 
-        <!-- Protein Base Choice -->
         <div class="card-section">
           <h3 class="card-section-title"><i class="fa-solid fa-drumstick-bite"></i> 2. Protein Choice</h3>
           <div class="protein-choice-box">
@@ -266,13 +260,12 @@ function renderC1MenuAndCart(subtotal, total) {
               <input type="radio" name="proteinType" value="none" ${state.cart.proteinType === 'none' ? 'checked' : ''} onchange="setProteinType('none')">
               <div>
                 <strong>No Default Protein</strong>
-                <div style="font-size:12px; color:var(--color-brand-secondary);">Base price remains the same (as per brief spec)</div>
+                <div style="font-size:12px; color:var(--color-brand-secondary);">Base price remains the same</div>
               </div>
             </label>
           </div>
         </div>
 
-        <!-- Free Condiments -->
         <div class="card-section">
           <h3 class="card-section-title"><i class="fa-solid fa-pepper-hot"></i> 3. Free Condiments</h3>
           <div class="condiments-grid">
@@ -282,7 +275,6 @@ function renderC1MenuAndCart(subtotal, total) {
           </div>
         </div>
 
-        <!-- Paid Extras -->
         <div class="card-section">
           <h3 class="card-section-title"><i class="fa-solid fa-plus"></i> 4. Paid Extra Add-ons</h3>
           <div class="extras-list">
@@ -314,7 +306,6 @@ function renderC1MenuAndCart(subtotal, total) {
 
       </div>
 
-      <!-- Live Running Cart Sidebar Panel -->
       <div class="c1-cart-column">
         <div class="cart-sticky-card">
           <h3 class="cart-title"><i class="fa-solid fa-cart-shopping"></i> Order Summary</h3>
@@ -409,18 +400,17 @@ function proceedToCheckout() {
   renderApp();
 }
 
-// C-4: Checkout & Payment
+// Checkout & Payment
 function renderC4Checkout(subtotal, total) {
   const isDelivery = state.cart.fulfillment === 'delivery';
 
   return `
     <div class="page-header">
-      <h2>C-4: Checkout & Payment</h2>
+      <h2>Checkout & Payment</h2>
       <p>Select delivery or pickup, enter notes, and complete payment via Paystack.</p>
     </div>
 
     <div class="checkout-layout">
-      <!-- Fulfillment & Notes Form -->
       <div class="checkout-form-card">
         
         <h3 class="form-title"><i class="fa-solid fa-truck-ramp-box"></i> Fulfillment Method</h3>
@@ -458,7 +448,6 @@ function renderC4Checkout(subtotal, total) {
 
       </div>
 
-      <!-- Read-only Summary & Pay Button -->
       <div class="checkout-summary-card">
         <h3 class="form-title"><i class="fa-solid fa-receipt"></i> Order Summary</h3>
         
@@ -522,7 +511,6 @@ function simulatePaystackPayment(subtotal, total) {
   showToast('Connecting to Paystack Ghana Gateway...');
   
   setTimeout(() => {
-    // Create new order
     const newId = 'DJ-' + Math.floor(1000 + Math.random() * 9000);
     const newOrder = {
       id: newId,
@@ -557,7 +545,7 @@ function simulatePaystackPayment(subtotal, total) {
   }, 1200);
 }
 
-// C-5: Order Confirmation
+// Order Confirmation
 function renderC5Confirmation() {
   const order = state.orders.find(o => o.id === state.trackingOrderId) || state.orders[0];
 
@@ -583,7 +571,7 @@ function renderC5Confirmation() {
   `;
 }
 
-// C-6: Order Status & Live Tracking
+// Order Status & Live Tracking
 function renderC6OrderTracking() {
   const order = state.orders.find(o => o.id === state.trackingOrderId) || state.orders[0];
   if (!order) return '<div class="page-header"><h2>No Active Order Found</h2></div>';
@@ -592,12 +580,11 @@ function renderC6OrderTracking() {
 
   return `
     <div class="page-header">
-      <h2>C-6: Live Order Tracking (#${order.id})</h2>
+      <h2>Live Order Tracking (#${order.id})</h2>
       <p>Real-time status updates from De Joe kitchen and delivery rider.</p>
     </div>
 
     <div class="tracking-layout">
-      <!-- Status Timeline -->
       <div class="timeline-card">
         <h3 class="card-section-title"><i class="fa-solid fa-route"></i> Order Progression</h3>
         
@@ -625,7 +612,6 @@ function renderC6OrderTracking() {
         </div>
       </div>
 
-      <!-- QR Code & Pickup Pass -->
       <div class="qr-pass-card">
         ${isDelivery && order.status === 'Dispatched' ? `
           <div class="qr-pass-active">
@@ -684,11 +670,11 @@ function renderTimelineStep(stepKey, label, currentStatus) {
   `;
 }
 
-// C-7: Order History
+// Order History
 function renderC7OrderHistory() {
   return `
     <div class="page-header">
-      <h2>C-7: Order History</h2>
+      <h2>Order History</h2>
       <p>View your past & present orders placed at De Joe Fast Food.</p>
     </div>
 
@@ -735,14 +721,14 @@ function rateSpecificOrder(id) {
   renderApp();
 }
 
-// C-8: Rate & Review
+// Rate & Review
 function renderC8RateAndReview() {
   const order = state.orders.find(o => o.id === state.trackingOrderId) || state.orders[0];
 
   return `
     <div class="rate-card">
       <div class="page-header" style="text-align:center;">
-        <h2>C-8: Rate Your Meal (#${order.id})</h2>
+        <h2>Rate Your Meal (#${order.id})</h2>
         <p>How was your food from De Joe Fast Food?</p>
       </div>
 
@@ -787,7 +773,7 @@ function submitOrderRating(id) {
 }
 
 /* ============================================================ */
-/* 2. VENDOR DASHBOARD PORTAL (V-1 to V-6)                      */
+/* 2. VENDOR DASHBOARD PORTAL                                   */
 /* ============================================================ */
 function renderVendorPortal(container) {
   container.innerHTML = `
@@ -801,16 +787,16 @@ function renderVendorPortal(container) {
       </div>
       <div class="nav-tabs">
         <button class="nav-tab ${state.vendorTab === 'orders' ? 'active' : ''}" onclick="switchVendorTab('orders')">
-          <i class="fa-solid fa-list-check"></i> V-2: Orders Queue
+          <i class="fa-solid fa-list-check"></i> Orders Queue
         </button>
         <button class="nav-tab ${state.vendorTab === 'menu-config' ? 'active' : ''}" onclick="switchVendorTab('menu-config')">
-          <i class="fa-solid fa-sliders"></i> V-4: Menu & Stock Controls
+          <i class="fa-solid fa-sliders"></i> Menu & Stock Controls
         </button>
         <button class="nav-tab ${state.vendorTab === 'riders' ? 'active' : ''}" onclick="switchVendorTab('riders')">
-          <i class="fa-solid fa-motorcycle"></i> V-5: Rider Pool
+          <i class="fa-solid fa-motorcycle"></i> Rider Pool
         </button>
         <button class="nav-tab ${state.vendorTab === 'sales' ? 'active' : ''}" onclick="switchVendorTab('sales')">
-          <i class="fa-solid fa-chart-line"></i> V-6: Sales Summary
+          <i class="fa-solid fa-chart-line"></i> Sales Summary
         </button>
       </div>
     </nav>
@@ -829,11 +815,11 @@ function getVendorTabHTML() {
   return '';
 }
 
-// V-2 & V-3: Vendor Orders Queue & Order Controls
+// Vendor Orders Queue & Order Controls
 function renderV2OrdersQueue() {
   return `
     <div class="page-header">
-      <h2>V-2: Active Orders Queue</h2>
+      <h2>Active Orders Queue</h2>
       <p>Manage kitchen workflow. Orders proceed: Pending → Accepted → Preparing → Dispatched → Delivered.</p>
     </div>
 
@@ -952,19 +938,18 @@ function dispatchOrderWithRider(id) {
   }
 }
 
-// V-4: Menu & Stock Configuration
+// Menu & Stock Configuration
 function renderV4MenuConfig() {
   const isJollofOn = state.menuConfig.jollofAvailable;
 
   return `
     <div class="page-header">
-      <h2>V-4: Menu & Stock Configuration</h2>
+      <h2>Menu & Stock Configuration</h2>
       <p>Toggle daily dishes, update condiment availability, and set delivery fees.</p>
     </div>
 
     <div class="config-grid">
       
-      <!-- Daily Jollof Toggle (Hero Control as specified in brief) -->
       <div class="config-card hero-toggle-card">
         <h3>🔥 Daily Jollof Master Switch</h3>
         <p style="font-size:13px; color:var(--color-text-secondary); margin:8px 0 16px 0;">
@@ -975,7 +960,6 @@ function renderV4MenuConfig() {
         </button>
       </div>
 
-      <!-- Condiments Availability Toggles -->
       <div class="config-card">
         <h3>🥗 Free Condiments Stock</h3>
         <div class="stock-toggle-list">
@@ -994,7 +978,6 @@ function renderV4MenuConfig() {
         </div>
       </div>
 
-      <!-- Delivery Fee Configuration -->
       <div class="config-card">
         <h3>🛵 Delivery Fee Configuration</h3>
         <div class="form-group">
@@ -1019,11 +1002,11 @@ function toggleCondimentStock(key, value) {
   renderApp();
 }
 
-// V-5: Rider Management
+// Rider Management
 function renderV5RiderManagement() {
   return `
     <div class="page-header">
-      <h2>V-5: Rider Pool Management</h2>
+      <h2>Rider Pool Management</h2>
       <p>Manage delivery riders available for dispatch assignment.</p>
     </div>
 
@@ -1044,14 +1027,14 @@ function renderV5RiderManagement() {
   `;
 }
 
-// V-6: Sales Summary
+// Sales Summary
 function renderV6SalesSummary() {
   const completedOrders = state.orders.filter(o => o.status === 'Delivered');
   const totalSales = completedOrders.reduce((sum, o) => sum + o.total, 0);
 
   return `
     <div class="page-header">
-      <h2>V-6: Daily Sales Book & Summary</h2>
+      <h2>Daily Sales Book & Summary</h2>
       <p>Digital accounting book for De Joe Fast Food Dome, Accra.</p>
     </div>
 
@@ -1076,7 +1059,7 @@ function renderV6SalesSummary() {
 }
 
 /* ============================================================ */
-/* 3. RIDER PORTAL (R-1 to R-4)                                 */
+/* 3. RIDER PORTAL                                              */
 /* ============================================================ */
 function renderRiderPortal(container) {
   container.innerHTML = `
@@ -1090,10 +1073,10 @@ function renderRiderPortal(container) {
       </div>
       <div class="nav-tabs">
         <button class="nav-tab ${state.riderTab === 'assigned' ? 'active' : ''}" onclick="switchRiderTab('assigned')">
-          <i class="fa-solid fa-motorcycle"></i> R-3: Assigned Jobs
+          <i class="fa-solid fa-motorcycle"></i> Assigned Jobs
         </button>
         <button class="nav-tab ${state.riderTab === 'scan' ? 'active' : ''}" onclick="switchRiderTab('scan')">
-          <i class="fa-solid fa-qrcode"></i> R-4: Scan QR Confirm
+          <i class="fa-solid fa-qrcode"></i> Scan QR Confirm
         </button>
       </div>
     </nav>
@@ -1115,7 +1098,7 @@ function renderR3AssignedJobs() {
 
   return `
     <div class="page-header">
-      <h2>R-3: Assigned Deliveries</h2>
+      <h2>Assigned Deliveries</h2>
       <p>Active dispatched deliveries assigned to you.</p>
     </div>
 
@@ -1157,11 +1140,11 @@ function openRiderScanFor(id) {
   renderApp();
 }
 
-// R-4: Scan-to-Confirm Delivery
+// Scan-to-Confirm Delivery
 function renderR4ScanConfirm() {
   return `
     <div class="page-header">
-      <h2>R-4: Scan-to-Confirm Delivery</h2>
+      <h2>Scan-to-Confirm Delivery</h2>
       <p>Scan the QR Code on the customer's phone to complete delivery (or enter fallback PIN).</p>
     </div>
 
