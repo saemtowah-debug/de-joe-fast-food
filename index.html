@@ -3,39 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>De Joe Fast Food - AEGIS Online Ordering System</title>
+  <title>De Joe Fast Food — Dome, Accra | Order Online</title>
+  <meta name="description" content="Authentic Ghanaian street food from Dome, Accra. Order Special Fried Rice, Smoky Firewood Jollof, and more. Fast delivery across Dome.">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Top Role Portal Switcher Bar (AEGIS Spec) -->
-  <header class="top-role-bar">
+  <!-- Ambient Floating Particles -->
+  <div class="ambient-particles" aria-hidden="true">
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+  </div>
+
+  <!-- Top Role Portal Switcher -->
+  <header class="top-role-bar" id="top-bar">
     <div class="role-bar-container">
-      <div class="role-bar-label">
-        <i class="fa-solid fa-layer-group"></i> <strong>AEGIS System Role Switcher:</strong>
+      <div class="role-bar-brand">
+        <img src="assets/logo.jpg" alt="De Joe Logo" class="role-bar-logo">
+        <span class="role-bar-name">DE JOE</span>
       </div>
       <div class="role-buttons">
         <button class="portal-btn active" data-portal="customer" onclick="switchPortal('customer')">
-          <i class="fa-solid fa-user"></i> Customer App
+          <i class="fa-solid fa-utensils"></i> <span>Customer</span>
         </button>
         <button class="portal-btn" data-portal="vendor" onclick="switchPortal('vendor')">
-          <i class="fa-solid fa-store"></i> Vendor Dashboard
+          <i class="fa-solid fa-store"></i> <span>Vendor</span>
         </button>
         <button class="portal-btn" data-portal="rider" onclick="switchPortal('rider')">
-          <i class="fa-solid fa-motorcycle"></i> Rider Workspace
+          <i class="fa-solid fa-motorcycle"></i> <span>Rider</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Root Container Managed by JavaScript -->
+  <!-- Main Application Root -->
   <main id="aegis-app-root">
     <!-- Rendered dynamically by app.js -->
   </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo.jpg" alt="De Joe" class="footer-logo">
+        <div>
+          <div class="footer-title">De Joe Fast Food</div>
+          <div class="footer-subtitle">Dome, Accra • Since 2020</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <span><i class="fa-solid fa-phone"></i> +233 24 123 4567</span>
+        <span><i class="fa-solid fa-envelope"></i> order@dejoe.com</span>
+        <span><i class="fa-brands fa-instagram"></i> @dejoefastfood</span>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 De Joe Fast Food. AEGIS Ordering System — DCIT 208 Project.
+      </div>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>

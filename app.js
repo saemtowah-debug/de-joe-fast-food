@@ -203,6 +203,22 @@ function renderC1MenuAndCart(subtotal, total) {
   const isJollofAvailable = state.menuConfig.jollofAvailable;
 
   return `
+    <!-- Hero Banner for Customer App -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa-solid fa-fire-flame-curved"></i> DOME, ACCRA BEST STREET FOOD
+        </div>
+        <h1 class="hero-title">Authentic Ghanaian Cuisine, Delivered Fresh.</h1>
+        <p class="hero-subtitle">Savour our signature Smoky Firewood Jollof & Special Wok Fried Rice with tender grilled chicken and custom condiments.</p>
+        <div class="hero-features">
+          <div class="hero-feature-item"><i class="fa-solid fa-clock"></i> 20-30 Min Delivery</div>
+          <div class="hero-feature-item"><i class="fa-solid fa-shield-halved"></i> Paystack Secured</div>
+          <div class="hero-feature-item"><i class="fa-solid fa-star"></i> 4.9 Star Rating</div>
+        </div>
+      </div>
+    </section>
+
     <div class="page-header">
       <h2>Build Your Meal & Cart</h2>
       <p>Select your dish, customize free condiments, and add extra proteins.</p>
